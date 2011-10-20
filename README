@@ -1,0 +1,51 @@
+NodeTcl is a native Node extension that embeds a Tcl interpreter
+within the Node.JS environment, allowing you to invoke Tcl commands
+from within JavaScript code.
+
+The primary purpose I could imagine this being useful is if you have
+existing Tcl code or packages that you would like to be able to
+leverage in a new Node.JS application.
+
+
+==Building==
+
+Just run "make" and a shared-library named "nodetcl.node" will be created.
+
+Compilation has only been tested on FreeBSD 8.2 with node-0.4.12 and tcl-8.5.10
+
+
+==Example==
+
+Included is an example1.js which contains the following:
+
+  var tcl = require('./nodetcl.node');
+  var interp = new tcl.NodeTcl();
+  console.log(interp.eval("expr 6*7"));
+
+Once you have built the extension, you can run it with:
+
+  node example1.js
+
+Which will print simply:
+
+  42
+
+
+==Known Limitations==
+
+* only string results may be returned from the "eval" method.
+
+* the Tcl event loop is not invoked after eval returns, so any Tcl
+  timers or events will not be triggered.
+
+* no support for invoking a JavaScript callback function from Tcl.
+
+
+==See also==
+
+For a nice example of how to write your own native Node extensions,
+check out the following blog entry and its associated github project:
+
+* https://www.cloudkick.com/blog/2010/aug/23/writing-nodejs-native-extensions/
+* https://github.com/pquerna/node-extension-examples
+
