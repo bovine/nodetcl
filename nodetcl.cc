@@ -43,6 +43,9 @@ public:
   {
     HandleScope scope;
     NodeTcl* hw = new NodeTcl();
+    if (Tcl_Init(hw->m_interp) == TCL_ERROR) {
+      return ThrowException(Exception::Error(String::New(Tcl_GetStringResult(hw->m_interp))));
+    }
     hw->Wrap(args.This());
     return args.This();
   }
