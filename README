@@ -2,9 +2,8 @@ NodeTcl is a native Node extension that embeds a Tcl interpreter
 within the Node.JS environment, allowing you to invoke Tcl commands
 from within JavaScript code.
 
-The primary purpose I could imagine this being useful is if you have
-existing Tcl code or packages that you would like to be able to
-leverage in a new Node.JS application.
+The primary purpose for which I could imagine this being useful is
+leveraging existing Tcl code or packages in a new Node.JS application.
 
 
 ==Building==
