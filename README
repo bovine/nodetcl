@@ -38,8 +38,6 @@ Which will print simply:
 * the Tcl event loop is not invoked after eval returns, so any Tcl
   timers or events will not be triggered.
 
-* no support for invoking a JavaScript callback function from Tcl.
-
 
 ==See also==
 
