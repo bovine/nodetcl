@@ -6,3 +6,6 @@ all:
 clean:
 	rm -rf build
 	rm -f nodetcl.node
+
+test:
+	node example1.js
