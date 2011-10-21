@@ -41,6 +41,8 @@ public:
     m_interp = NULL;
   }
 
+  // ----------------------------------------------------
+
   /*
    * new NodeTcl() -- allocate and return a new interpreter.
    */
@@ -56,6 +58,8 @@ public:
     hw->Wrap(args.This());
     return args.This();
   }
+
+  // ----------------------------------------------------
 
   /*
    * eval(String) -- execute some Tcl code and return the result.
@@ -83,6 +87,7 @@ public:
     return scope.Close(result);
   }
 
+  // ----------------------------------------------------
 
   /*
    * Data about a JavaScript function that can be executed.
@@ -128,6 +133,19 @@ public:
 
 
   /*
+   * Called by Tcl when it wants to delete the proc.
+   */
+  static void CallbackDelete (ClientData clientData)
+  {
+    callback_data_t *cbdata = static_cast<callback_data_t*>(clientData);
+
+    cbdata->jsfunc.Dispose();
+    cbdata->hw->Unref();
+
+    delete cbdata;
+  }
+
+  /*
    * proc(String, Function) -- define a proc within the Tcl namespace that executes a JavaScript function callback.
    */
   static Handle<Value> Proc(const Arguments& args)
@@ -151,12 +169,14 @@ public:
     callback_data_t *cbdata = new callback_data_t();
     cbdata->hw = hw;
     cbdata->jsfunc = Persistent<Function>::New(jsfunc);
-    cbdata->cmd = Tcl_CreateCommand(hw->m_interp, (const char*)*String::Utf8Value(cmdName), CallbackTrampoline, (ClientData) cbdata, NULL);
+    cbdata->cmd = Tcl_CreateCommand(hw->m_interp, (const char*)*String::Utf8Value(cmdName), CallbackTrampoline, (ClientData) cbdata, CallbackDelete);
 
     hw->Ref();
 
     return Undefined();
   }
+
+  // ----------------------------------------------------
 
   /*
    * event(Boolean) -- handle one or all pending Tcl events if boolean is present and true
@@ -184,6 +204,8 @@ public:
     Local<Integer> result = Integer::New(eventStatus);
     return scope.Close(result);
   }
+
+  // ----------------------------------------------------
 
 };
 
