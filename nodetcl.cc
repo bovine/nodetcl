@@ -25,6 +25,7 @@ public:
 
     NODE_SET_PROTOTYPE_METHOD(s_ct, "eval", Eval);
     NODE_SET_PROTOTYPE_METHOD(s_ct, "proc", Proc);
+    NODE_SET_PROTOTYPE_METHOD(s_ct, "process_events", Event);
 
     target->Set(String::NewSymbol("NodeTcl"), s_ct->GetFunction());
   }
@@ -155,6 +156,33 @@ public:
     hw->Ref();
 
     return Undefined();
+  }
+
+  /*
+   * event(Boolean) -- handle one or all pending Tcl events if boolean is present and true
+   */
+  static Handle<Value> Event(const Arguments& args)
+  {
+    HandleScope scope;
+    int eventStatus;
+    int doMultiple;
+
+    if (args.Length() > 1 || (args.Length() == 1 && !args[0]->IsBoolean())) {
+      return ThrowException(Exception::TypeError(String::New("Optional argument, if present, must be a boolean")));
+    }
+
+    if (args.Length() == 0)  {
+	doMultiple = 1;
+    } else {
+	doMultiple = args[0]->ToBoolean()->Value();
+    }
+
+    do {
+	eventStatus = Tcl_DoOneEvent (TCL_ALL_EVENTS | TCL_DONT_WAIT);
+    } while (doMultiple && eventStatus);
+
+    Local<Integer> result = Integer::New(eventStatus);
+    return scope.Close(result);
   }
 
 };

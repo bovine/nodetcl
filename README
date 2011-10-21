@@ -29,6 +29,10 @@ Which will print simply:
 
   42
 
+==Tcl Event Loop==
+Keep the Tcl event loop alive to handle Tcl after timers, file events,
+etc, in an asynchronous Node-compatible style by periodically invoking 
+interp.process_events().
 
 ==Known Limitations==
 
