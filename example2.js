@@ -1,3 +1,9 @@
+//
+// Demonstrates how to register an anonymous JavaScript function into
+// the namespace of a Tcl interpreter.  Then invoke it from Tcl with a
+// value returned back to JavaScript.
+//
+
 var tcl = require('./nodetcl.node');
 var interp = new tcl.NodeTcl();
 
