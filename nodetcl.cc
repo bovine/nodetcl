@@ -1,3 +1,13 @@
+/*
+ * NodeTcl is a native Node extension that embeds a Tcl interpreter
+ * within the Node.JS environment, allowing you to invoke Tcl commands
+ * from within JavaScript code.
+ *
+ * Copyright (c) 2011, FlightAware LLC
+ * All rights reserved.
+ * Distributed under BSD license.  See LICENSE for details.
+ */
+
 #include <v8.h>
 #include <node.h>
 #include <tcl.h>
