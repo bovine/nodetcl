@@ -8,4 +8,4 @@ clean:
 	rm -f nodetcl.node
 
 test:
-	node example1.js
+	node example/example1.js
