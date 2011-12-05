@@ -2,21 +2,32 @@
   "name": "nodetcl",
   "description": "Node extension that embeds a Tcl interpreter within the Node.JS environment",
   "version": "0.0.1",
+  "author": "Jeff Lawson <jeff@bovine.net>",
   "maintainers": [
-       { "name": "Jeff Lawson", "email": "jeff@bovine.net" },
+       { 
+           "name": "Jeff Lawson",
+           "email": "jeff@bovine.net"
+       }
   ],
   "repositories": [
-       { "type": "git", "url": "https://github.com/bovine/nodetcl.git" },
-  ]
-  "licenses": [
-       { "type": "BSD", "url": "https://github.com/bovine/nodetcl/blob/master/LICENSE" } 
+       {
+           "type": "git", 
+           "url": "https://github.com/bovine/nodetcl.git" 
+       }
   ],
-  "engines": [ "node" ],
+  "licenses": [
+       { 
+           "type": "BSD",
+           "url": "https://github.com/bovine/nodetcl/blob/master/LICENSE"
+       }
+  ],
+  "engines": [ 
+       "node" 
+  ],
   "dependencies": {
-    "tcl": "8.5"
   },
   "scripts": {
-       "build": "make",
+       "install": "node-waf configure build",
        "test": "make test" 
-  },
+  }
 }

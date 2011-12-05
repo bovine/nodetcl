@@ -13,4 +13,4 @@ def build(bld):
                   "-I/usr/local/include/tcl8.5" ]
   obj.ldflags = [ "-ltcl85" ]
   obj.target = "nodetcl"
-  obj.source = "nodetcl.cc"
+  obj.source = "src/nodetcl.cc"
