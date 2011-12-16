@@ -36,8 +36,6 @@ interp.process_events().
 
 ==Known Limitations==
 
-* only string results may be returned from the "eval" method.
-
 * the Tcl event loop is not invoked after eval returns, so any Tcl
   timers or events will not be triggered.
 
