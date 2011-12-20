@@ -1,49 +1,53 @@
-NodeTcl is a native Node extension that embeds a Tcl interpreter
-within the Node.JS environment, allowing you to invoke Tcl commands
-from within JavaScript code.
+# NodeTcl
 
-The primary purpose for which I could imagine this being useful is
-leveraging existing Tcl code or packages in a new Node.JS application.
+NodeTcl is a native Node extension that embeds a Tcl interpreter within the Node.js environment, allowing you to invoke Tcl commands from within JavaScript code.
 
-
-==Building==
-
-Just run "make" and a shared-library named "nodetcl.node" will be created.
-
-Compilation has only been tested on FreeBSD 8.2 with node-0.4.12 and tcl-8.5.10
+This is especially useful for leveraging existing Tcl code or packages in a new Node.js application.
 
 
-==Example==
+## Installation
 
-Included is an example1.js which contains the following:
+Just run `make` and a shared-library named `nodetcl.node` will be created.
 
-  var tcl = require('./nodetcl.node');
-  var interp = new tcl.NodeTcl();
-  console.log(interp.eval("expr 6*7"));
+Compilation has only been tested on FreeBSD 8.2 with node-0.4.12 and tcl-8.5.10.
+
+
+## Example
+
+Included is an `example1.js` which contains the following:
+
+```js
+var tcl = require('./nodetcl.node');
+var interp = new tcl.NodeTcl();
+console.log(interp.eval("expr 6*7"));
+```
 
 Once you have built the extension, you can run it with:
 
+```bash
   node example1.js
+```
 
 Which will print simply:
 
+```js
   42
+```
 
-==Tcl Event Loop==
+## Tcl Event Loop
+
 Keep the Tcl event loop alive to handle Tcl after timers, file events,
 etc, in an asynchronous Node-compatible style by periodically invoking 
-interp.process_events().
+`interp.process_events()`.
 
-==Known Limitations==
+## Known Limitations
 
-* the Tcl event loop is not invoked after eval returns, so any Tcl
-  timers or events will not be triggered.
+* the Tcl event loop is not invoked after eval returns, so any Tcl timers or events will not be triggered.
 
 
-==See also==
+## See also
 
-For a nice example of how to write your own native Node extensions,
-check out the following blog entry and its associated github project:
+For a nice example of how to write your own native Node extensions, check out the following blog entry and its associated github project:
 
 * https://www.cloudkick.com/blog/2010/aug/23/writing-nodejs-native-extensions/
 * https://github.com/pquerna/node-extension-examples
