@@ -33,6 +33,33 @@ Which will print simply:
 ```js
   42
 ```
+### Call vs Eval
+
+The `call` method differs from `eval` in that the arguments are not evaluated (no need to escape special characters). It takes an arbitrary amount of arguments and executes them as a Tcl statement:
+
+```js
+interp.call("puts", "[hello world]")
+```
+
+Which will return:
+
+```js
+  [hello world]
+```
+
+`call` also accepts arrays (will be converted to lists) and simple key-value-mapping objects (will be converted to dicts) as arguments:
+
+```js
+interp.call("llength", [1, 2, 3, 4, 5])
+```
+
+Which will return:
+
+```js
+  5
+```
+
+`call` also converts return values: lists become arrays, dicts become objects and numbers are returned as numbers, not as strings.
 
 ## Tcl Event Loop
 
