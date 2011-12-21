@@ -61,21 +61,24 @@ Which will return:
 
 `call` also converts return values: lists become arrays, dicts become objects and numbers are returned as numbers, not as strings.
 
+Return values from custom procs can also have different types, just like call's arguments:
+
+```js
+interp.proc("foo", function() { return ["foo", "bar"] })
+```
+
+### Other Methods
+
+* `getStacktrace()` returns Tcl's stacktrace of the last error that occured
+* `setTimeLimit(seconds)` sets a time limit (in seconds) for all subsequent 'call' or 'eval' calls, a limit of 0 disables this
+* `getTimeLimit()` returns the current time limit setting
+* `makeSafe()` converts the interpreter into a safe interpreter
+* `deleteProc(name)` removes a proc from the interpreter (also works on default procs, such as `exit`)
+
 ## Tcl Event Loop
 
-Keep the Tcl event loop alive to handle Tcl after timers, file events,
-etc, in an asynchronous Node-compatible style by periodically invoking 
-`interp.process_events()`.
+Keep the Tcl event loop alive to handle Tcl after timers, file events, etc, in an asynchronous Node-compatible style by periodically invoking `interp.process_events()`.
 
 ## Known Limitations
 
 * the Tcl event loop is not invoked after eval returns, so any Tcl timers or events will not be triggered.
-
-
-## See also
-
-For a nice example of how to write your own native Node extensions, check out the following blog entry and its associated github project:
-
-* https://www.cloudkick.com/blog/2010/aug/23/writing-nodejs-native-extensions/
-* https://github.com/pquerna/node-extension-examples
-
