@@ -38,7 +38,7 @@ Which will print simply:
 
 * `eval(string)` executes a string containing one or more Tcl commands, returning the result.
 * `call(command, ...)` executes a single Tcl command with explicit arguments, returning the result.
-* `proc(name, body)` declares a new Tcl command that invokes the specified Javascript function body.
+* `proc(name, body)` declares a new Tcl command that invokes the specified JavaScript function body.
 * `getStacktrace()` returns Tcl's stacktrace of the last error that occured.
 * `setTimeLimit(seconds)` sets a time limit (in seconds) for all subsequent 'call' or 'eval' calls, a limit of 0 disables this.
 * `getTimeLimit()` returns the current time limit setting.
@@ -60,7 +60,7 @@ Which will return:
   [hello world]
 ```
 
-`call` also accepts arrays (will be converted to lists) and simple key-value-mapping objects (will be converted to dicts) as arguments:
+`call` also accepts JavaScript arrays (will be converted to Tcl lists) and simple key-value-mapping objects (will be converted to Tcl dicts) as arguments:
 
 ```js
 interp.call("llength", [1, 2, 3, 4, 5])
@@ -72,7 +72,7 @@ Which will return:
   5
 ```
 
-`call` also converts return values: lists become arrays, dicts become objects and numbers are returned as numbers, not as strings.
+`eval` and `call` both convert their Tcl return values to JavaScript data types: lists become arrays, dicts become objects, and numbers are returned as numbers (not as strings).
 
 Return values from custom procs can also have different types, just like call's arguments:
 
