@@ -370,7 +370,7 @@ public:
       Tcl_LimitTypeReset(hw->m_interp, TCL_LIMIT_TIME);
     }
   
-    int cc = Tcl_Eval(hw->m_interp, (const char*)*String::Utf8Value(script));
+    int cc = Tcl_EvalEx(hw->m_interp, (const char*)*String::Utf8Value(script), -1, 0);
     if (cc != TCL_OK) {
       Tcl_Obj *obj = Tcl_GetObjResult(hw->m_interp);
       return ThrowException(Exception::Error(String::New(Tcl_GetString(obj))));
