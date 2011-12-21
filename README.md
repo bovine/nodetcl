@@ -44,7 +44,7 @@ Which will print simply:
 * `getTimeLimit()` returns the current time limit setting.
 * `makeSafe()` converts the interpreter into a safe interpreter.
 * `deleteProc(name)` removes a proc from the interpreter (also works on default procs, such as `exit`).
-* `process_events(allEvents)` allows pending Tcl events to be processed.  If the argument if false, only one pending event will be processed.
+* `process_events(allEvents)` allows pending Tcl events to be processed.  If the argument is false, only one pending event will be processed.
 
 ### Call vs Eval
 
@@ -72,7 +72,7 @@ Which will return:
   5
 ```
 
-`eval` and `call` both convert their Tcl return values to JavaScript data types: lists become arrays, dicts become objects, and numbers are returned as numbers (not as strings).
+`eval` and `call` both convert their Tcl return values to JavaScript data types: lists become arrays, dicts become objects, and numbers are returned as numbers.
 
 Return values from custom procs can also have different types, just like call's arguments:
 
@@ -82,5 +82,5 @@ interp.proc("foo", function() { return ["foo", "bar"] })
 
 ## Known Limitations
 
-* the Tcl event loop is not automatically invoked after `eval` or `call` returns, so any Tcl timers or events will not be triggered.  To keep the Tcl event loop alive in an asyncronous Node-compatible style, you must periodically invoke `interp.process_events()`.  See the included `example3.js` for an example of how to do this.
+* The Tcl event loop is not automatically invoked after `eval` or `call` returns, so any Tcl timers or events will not be triggered.  To keep the Tcl event loop alive in an asyncronous Node-compatible style, you must periodically invoke `interp.process_events()`.  See the included `example3.js` for an example of how to do this.
 
