@@ -33,22 +33,52 @@ Which will print simply:
 ```js
   42
 ```
+### Call vs Eval
+
+The `call` method differs from `eval` in that the arguments are not evaluated (no need to escape special characters). It takes an arbitrary amount of arguments and executes them as a Tcl statement:
+
+```js
+interp.call("puts", "[hello world]")
+```
+
+Which will return:
+
+```js
+  [hello world]
+```
+
+`call` also accepts arrays (will be converted to lists) and simple key-value-mapping objects (will be converted to dicts) as arguments:
+
+```js
+interp.call("llength", [1, 2, 3, 4, 5])
+```
+
+Which will return:
+
+```js
+  5
+```
+
+`call` also converts return values: lists become arrays, dicts become objects and numbers are returned as numbers, not as strings.
+
+Return values from custom procs can also have different types, just like call's arguments:
+
+```js
+interp.proc("foo", function() { return ["foo", "bar"] })
+```
+
+### Other Methods
+
+* `getStacktrace()` returns Tcl's stacktrace of the last error that occured
+* `setTimeLimit(seconds)` sets a time limit (in seconds) for all subsequent 'call' or 'eval' calls, a limit of 0 disables this
+* `getTimeLimit()` returns the current time limit setting
+* `makeSafe()` converts the interpreter into a safe interpreter
+* `deleteProc(name)` removes a proc from the interpreter (also works on default procs, such as `exit`)
 
 ## Tcl Event Loop
 
-Keep the Tcl event loop alive to handle Tcl after timers, file events,
-etc, in an asynchronous Node-compatible style by periodically invoking 
-`interp.process_events()`.
+Keep the Tcl event loop alive to handle Tcl after timers, file events, etc, in an asynchronous Node-compatible style by periodically invoking `interp.process_events()`.
 
 ## Known Limitations
 
 * the Tcl event loop is not invoked after eval returns, so any Tcl timers or events will not be triggered.
-
-
-## See also
-
-For a nice example of how to write your own native Node extensions, check out the following blog entry and its associated github project:
-
-* https://www.cloudkick.com/blog/2010/aug/23/writing-nodejs-native-extensions/
-* https://github.com/pquerna/node-extension-examples
-
