@@ -416,7 +416,29 @@ public:
     // If a JavaScript exception occurred, send back a Tcl error.
     if (try_catch.HasCaught()) {
       Local<Message> msg = try_catch.Message();
-      Tcl_SetObjResult(interp, Tcl_NewStringObj((const char*)*String::Utf8Value(msg->Get()), -1));
+
+      // pass back the exception message.
+      v8::String::Utf8Value msgtext(msg->Get());
+      Tcl_SetObjResult(interp, Tcl_NewStringObj(*msgtext, -1));
+
+      // pass back the Return Options with the stack details.
+      v8::String::Utf8Value filename(msg->GetScriptResourceName());
+      v8::String::Utf8Value sourceline(msg->GetSourceLine());
+      int linenum = msg->GetLineNumber();
+
+      Tcl_SetErrorCode(interp, *sourceline, NULL);
+      Tcl_AddErrorInfo(interp, "\n   occurred in file ");
+      Tcl_AddErrorInfo(interp, *filename);
+      Tcl_AddErrorInfo(interp, " line ");
+      Tcl_AppendObjToErrorInfo(interp, Tcl_NewIntObj(linenum));
+
+
+      // append the full stack trace if it was present.
+      v8::String::Utf8Value stack_trace(try_catch.StackTrace());
+      if (stack_trace.length() > 0) {
+	Tcl_AddErrorInfo(interp, *stack_trace);
+      }
+
       return TCL_ERROR;
     }
 
