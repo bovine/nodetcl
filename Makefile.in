@@ -1,0 +1,21 @@
+all:
+	@NODE_WAF@ configure
+	@NODE_WAF@ build
+	cp -f ./build/*/nodetcl.node .
+
+clean:
+	@NODE_WAF@ clean
+	rm -rf build
+	rm -f nodetcl.node
+
+install:
+	@NODE_WAF@ install
+
+uninstall:
+	@NODE_WAF@ uninstall
+
+test:
+	cp -f ./build/*/nodetcl.node example
+	node example/example1.js
+	node example/example2.js
+	node example/example3.js

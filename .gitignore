@@ -1,2 +1,9 @@
 build
 nodetcl.node
+*.cache
+*DS_Store*
+*.log
+*~
+*.o
+*.status
+config.h
