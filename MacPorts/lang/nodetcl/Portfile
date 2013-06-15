@@ -41,3 +41,4 @@ universal_variant   no
 configure.cmd       ./waf
 configure.pre_args  "configure"
 
+livecheck.type      none

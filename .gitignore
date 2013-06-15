@@ -9,4 +9,4 @@ nodetcl.node
 config.h
 .lock-wscript
 MacPorts/*/*/work
-.waf-1.6.2*/*
+.waf-1.*.*/*
