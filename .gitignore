@@ -7,3 +7,5 @@ nodetcl.node
 *.o
 *.status
 config.h
+.lock-wscript
+MacPorts/*/*/work

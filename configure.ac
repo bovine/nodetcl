@@ -16,7 +16,8 @@ AC_PATH_PROG([NODE_WAF], [node-waf], [], [$PATH:/opt/local/bin:/usr/local/bin])
 if test "x$NODE_WAF" = "x"; then
 	AC_MSG_ERROR([node-waf not found; it is required to build])
 fi
-AC_SUBST(NODE_WAF)
+AC_SUBST([NODE_WAF])
+AC_PATH_PROG([WAF], [waf])
 
 # Checks for libraries.
 
@@ -31,3 +32,5 @@ AC_FUNC_MALLOC
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
+
+$NODE_WAF configure

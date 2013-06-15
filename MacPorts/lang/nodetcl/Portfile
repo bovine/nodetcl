@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+#PortGroup           github 1.0
+
+# Leaving github.setup commented out until upstream has a tag:
+# https://github.com/bovine/nodetcl/issues/8
+#github.setup        bovine nodetcl
+name                nodetcl
+version             0.0.1
+categories          lang
+platforms           darwin
+maintainers         gwmail.gwu.edu:egall openmaintainer
+license             BSD
+
+description         Node.JS extension to allow Tcl code to be invoked \
+                    from JavaScript
+
+long_description    NodeTcl is a native Node extension that embeds a Tcl \
+                    interpreter within the Node.js environment, allowing \
+                    you to invoke Tcl commands from within JavaScript \
+                    code. This is especially useful for leveraging \
+                    existing Tcl code or packages in a new Node.js \
+                    application.
+
+homepage            https://github.com/bovine/nodetcl
+
+fetch.type          git
+git.url             git://github.com/bovine/nodetcl.git
+
+depends_build-append \
+                    bin:node-waf:nodejs
+depends_run-append  bin:node:nodejs
+
+# nodejs is not universal
+universal_variant   no
+
+configure.cmd       node-waf
+configure.pre_args  ""
+

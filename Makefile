@@ -1,18 +1,18 @@
 all:
-	node-waf configure
-	node-waf build
+	/usr/local/bin/node-waf configure
+	/usr/local/bin/node-waf build
 	cp -f ./build/*/nodetcl.node .
 
 clean:
-	node-waf clean
+	/usr/local/bin/node-waf clean
 	rm -rf build
 	rm -f nodetcl.node
 
 install:
-	node-waf install
+	/usr/local/bin/node-waf install
 
 uninstall:
-	node-waf uninstall
+	/usr/local/bin/node-waf uninstall
 
 test:
 	cp -f ./build/*/nodetcl.node example
