@@ -28,15 +28,16 @@ long_description    NodeTcl is a native Node extension that embeds a Tcl \
 homepage            https://github.com/bovine/nodetcl
 
 fetch.type          git
-git.url             git://github.com/bovine/nodetcl.git
+git.url             git://github.com/cooljeanius/nodetcl.git
 
 depends_build-append \
                     bin:node-waf:nodejs
+depends_lib-append  lib:tcl:tcl
 depends_run-append  bin:node:nodejs
 
 # nodejs is not universal
 universal_variant   no
 
-configure.cmd       node-waf
-configure.pre_args  ""
+configure.cmd       ./waf
+configure.pre_args  "configure"
 
