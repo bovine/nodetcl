@@ -39,6 +39,6 @@ depends_run-append  bin:node:nodejs
 universal_variant   no
 
 configure.cmd       ./waf
-configure.pre_args  "configure"
+configure.pre_args  "configure --prefix=${prefix}"
 
 livecheck.type      none
