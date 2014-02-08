@@ -3,8 +3,23 @@
 /* Define if building universal (internal helper macro) */
 #undef AC_APPLE_UNIVERSAL_BUILD
 
+/* Define to 1 if you have the <dlfcn.h> header file. */
+#undef HAVE_DLFCN_H
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `v8' library (-lv8). */
+#undef HAVE_LIBV8
+
+/* Define to 1 if you have the `v8_base' library (-lv8_base). */
+#undef HAVE_LIBV8_BASE
+
+/* Define to 1 if you have the `v8_nosnapshot' library (-lv8_nosnapshot). */
+#undef HAVE_LIBV8_NOSNAPSHOT
+
+/* Define to 1 if you have the `v8_snapshot' library (-lv8_snapshot). */
+#undef HAVE_LIBV8_SNAPSHOT
 
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
    to 0 otherwise. */
@@ -51,6 +66,10 @@
 
 /* Define to 1 if you have the <v8.h> header file. */
 #undef HAVE_V8_H
+
+/* Define to the sub-directory in which libtool stores uninstalled libraries.
+   */
+#undef LT_OBJDIR
 
 /* Name of package */
 #undef PACKAGE

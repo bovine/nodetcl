@@ -27,8 +27,13 @@ case ${host} in
         fi
       fi
     fi
+    export AM_LDFLAGS="-bundle -undefined dynamic_lookup"
+    AC_SUBST([AM_LDFLAGS])
     if test -d /opt/local/lib; then
       export LDFLAGS="${LDFLAGS} -L/opt/local/lib"
+      if test -d /opt/local/lib/node8; then
+        export LDFLAGS="${LDFLAGS} -L/opt/local/lib/node8"
+      fi
     fi
     ;;
 esac
@@ -57,8 +62,20 @@ fi
 AC_SUBST([NODE_WAF])
 AC_PATH_PROG([WAF],[waf waf-1.6.2],[],[${PATH}:.])
 
+# Try using libtool for linking:
+LT_INIT([dlopen])
+LT_LANG([C++])
+
 # Checks for libraries.
 AC_SEARCH_LIBS([Tcl_Init],[Tcl Tcl85 Tcl8.5])
+# FIXME: Replace `main' with a function in `-lv8':
+AC_CHECK_LIB([v8],[main])
+# FIXME: Replace `main' with a function in `-lv8_base':
+AC_CHECK_LIB([v8_base],[main])
+# FIXME: Replace `main' with a function in `-lv8_nosnapshot':
+AC_CHECK_LIB([v8_nosnapshot],[main])
+# FIXME: Replace `main' with a function in `-lv8_snapshot':
+AC_CHECK_LIB([v8_snapshot],[main])
 
 # Checks for header files.
 AC_CHECK_HEADERS([node.h stdio.h tcl.h v8.h])

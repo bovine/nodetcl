@@ -31,3 +31,7 @@ tags
 cscope*.out
 cscope.files
 config*.lineno
+libtool
+*libs/*
+*.lo
+config.lt
