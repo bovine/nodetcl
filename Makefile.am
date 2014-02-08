@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I autotools_m4 --install
 
 CLEANFILES = *~ ./*.o build/*.o src/*.o
-DISTCLEANFILES = *~ .DS_Store autoscan.log npm-debug.log
+DISTCLEANFILES = *~ .DS_Store autoscan.log npm-debug.log .lock-wscript
 
 AM_CPPFLAGS = -I$(srcdir)
 AM_CFLAGS = -Wall
@@ -13,9 +13,15 @@ NODE_BIN = @NODE_BIN@
 
 all: nodetcl.node
 
-all_with_node_waf:
+configure_with_node_waf: wscript
 	$(NODE_WAF) configure
+.PHONY: configure_with_node_waf
+
+build_with_node_waf: wscript configure_with_node_waf
 	$(NODE_WAF) build
+.PHONY: build_with_node_waf
+
+all_with_node_waf: configure_with_node_waf build_with_node_waf
 	cp -f ./build/*/nodetcl.node .
 .PHONY: all_with_node_waf
 
@@ -27,10 +33,11 @@ build/Release/nodetcl.node: all_with_node_waf
 		cp -f ./build/Debug/nodetcl.node ./build/Release; \
 	fi
 
-clean_with_node_waf:
+clean_with_node_waf: wscript configure_with_node_waf
 	$(NODE_WAF) clean
 	rm -rf build || rmdir build
 	rm -f nodetcl.node
+	test -e .lock-wscript && rm -f .lock-wscript
 .PHONY: clean_with_node_waf
 
 clean-local:
@@ -39,11 +46,11 @@ clean-local:
 	rm -rf node_modules || rmdir node_modules
 .PHONY: clean-local
 
-install_with_node_waf:
+install_with_node_waf: wscript configure_with_node_waf
 	$(NODE_WAF) install
 .PHONY: install_with_node_waf
 
-uninstall_with_node_waf:
+uninstall_with_node_waf: wscript configure_with_node_waf
 	$(NODE_WAF) uninstall
 .PHONY: uninstall_with_node_waf
 
