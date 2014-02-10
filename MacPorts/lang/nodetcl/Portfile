@@ -3,13 +3,9 @@
 
 PortSystem          1.0
 
-#PortGroup           github 1.0
+PortGroup           github 1.0
 
-# Leaving github.setup commented out until upstream has a tag:
-# https://github.com/bovine/nodetcl/issues/8
-#github.setup        bovine nodetcl
-name                nodetcl
-version             0.0.1
+github.setup        bovine nodetcl 1.0.0 v
 categories          lang
 platforms           darwin
 maintainers         gwmail.gwu.edu:egall openmaintainer
@@ -27,18 +23,58 @@ long_description    NodeTcl is a native Node extension that embeds a Tcl \
 
 homepage            https://github.com/bovine/nodetcl
 
-fetch.type          git
-git.url             git://github.com/cooljeanius/nodetcl.git
+checksums           rmd160  5fd5da3cc4ad356e16796072f2cab548dac9091d \
+                    sha256  c9e70a2763d16647bfc435d842d1800050c7c33b107c4c6e7cde50de90404827
 
-depends_build-append \
-                    bin:node-waf:nodejs
+depends_build-append path:bin/node-waf:nodejs8
 depends_lib-append  lib:tcl:tcl
-depends_run-append  bin:node:nodejs
+#TODO: make sure that nodejs8's node8 executable that we are requiring
+# here is actually used:
+depends_run-append  bin:node8:nodejs8
 
-# nodejs is not universal
+# nodejs8 is not universal, so disable universal variant here, too:
 universal_variant   no
 
-configure.cmd       ./waf
-configure.pre_args  "configure --prefix=${prefix}"
+configure.cmd       ${prefix}/bin/node-waf configure
+configure.universal_args ""
+configure.env-append \
+                    NODE_PATH=${prefix}/lib/node8 \
+                    LIBDIR=${prefix}/lib/node8 \
+                    PREFIX=${prefix} \
+                    LINK_CXX=${configure.cxx} \
+                    CPP=${configure.cpp}
+
+# For some reason the Makefile re-runs configure, so we have to make sure
+# that the configure-related variables are still set:
+build.env-append    CFLAGS=${configure.cflags} \
+                    CPPFLAGS=${configure.cppflags} \
+                    CXXFLAGS=${configure.cxxflags} \
+                    CXX="${configure.cxx}" \
+                    LDFLAGS="${configure.ldflags}" \
+                    CC="${configure.cc}" \
+                    NODE_PATH=${prefix}/lib/node8 \
+                    LIBDIR=${prefix}/lib/node8 \
+                    PREFIX=${prefix} \
+                    LINK_CXX=${configure.cxx} \
+                    CPP=${configure.cpp}
+
+# Tests succeeded last time I tried:
+test.run            yes
+test.env-append     NODE_PATH=${prefix}/lib/node8 \
+                    LIBDIR=${prefix}/lib/node8 \
+                    PREFIX=${prefix}
+
+destroot.env-append NODE_PATH=${prefix}/lib/node8 \
+                    LIBDIR=${prefix}/lib/node8 \
+                    PREFIX=${prefix}
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} LICENSE README.md ${docdir}
+    set exampledir ${destroot}${prefix}/share/examples/${name}
+    xinstall -d ${exampledir}
+    eval xinstall -m 755 -W ${worksrcpath} [glob example/example*.js] ${exampledir}
+}
 
 livecheck.type      none
