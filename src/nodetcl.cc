@@ -404,7 +404,7 @@ public:
     callback_data_t *cbdata = static_cast<callback_data_t*>(clientData);
 
     // Convert all of the arguments, but skip the 0th element (the procname).
-    Local<Value> jsArgv[objc - 1];
+    Local<Value> *jsArgv = new Local<Value>[objc - 1];
     for (int i = 1; i < objc; i++) {
       jsArgv[i - 1] = tclToJs((Tcl_Obj*)objv[i], interp);
     }
@@ -412,6 +412,7 @@ public:
     // Execute the JavaScript method.
     TryCatch try_catch;
     Local<Value> result = cbdata->jsfunc->Call(Context::GetCurrent()->Global(), objc - 1, jsArgv);
+    delete [] jsArgv;
 
     // If a JavaScript exception occurred, send back a Tcl error.
     if (try_catch.HasCaught()) {

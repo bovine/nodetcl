@@ -1,18 +1,22 @@
+# If you do not have node-gyp installed, then you need to do this first:
+#    pkg install www/npm python
+#    npm install -g node-gyp
+
 all:
-	node-waf configure
-	node-waf build
+	node-gyp configure
+	env CXX=c++ node-gyp build
 	cp -f ./build/*/nodetcl.node .
 
 clean:
-	node-waf clean
+	node-gyp clean
 	rm -rf build
 	rm -f nodetcl.node
 
 install:
-	node-waf install
+	node-gyp install
 
 uninstall:
-	node-waf uninstall
+	node-gyp uninstall
 
 test:
 	cp -f ./build/*/nodetcl.node example
