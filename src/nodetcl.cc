@@ -23,7 +23,13 @@
 #  ifdef HAVE_NODE_V8_H
 #   include <node/v8.h>
 #  else
-#   warning nodetcl.cc expects a v8 header to be included.
+#   ifdef HAVE_NODE8_V8_H
+#    include <node8/v8.h>
+#   else
+#    if defined(__GNUC__) && !defined(__STRICT_ANSI__)
+#     warning "nodetcl.cc expects a v8 header to be included."
+#    endif /* __GNUC__ && !__STRICT_ANSI__ */
+#   endif /* HAVE_NODE8_V8_H */
 #  endif /* HAVE_NODE_V8_H */
 # endif /* HAVE_V8_H */
 # ifdef HAVE_NODE_H
@@ -32,7 +38,13 @@
 #  ifdef HAVE_NODE_NODE_H
 #   include <node/node.h>
 #  else
-#   warning nodetcl.cc expects a nodejs header to be included.
+#   ifdef HAVE_NODE8_NODE_H
+#    include <node8/node.h>
+#   else
+#    if defined(__GNUC__) && !defined(__STRICT_ANSI__)
+#     warning "nodetcl.cc expects a nodejs header to be included."
+#    endif /* __GNUC__ && !__STRICT_ANSI__ */
+#   endif /* HAVE_NODE8_NODE_H */
 #  endif /* HAVE_NODE_NODE_H */
 # endif /* HAVE_NODE_H */
 #endif /* NON_AUTOTOOLS_BUILD */

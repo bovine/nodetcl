@@ -28,6 +28,12 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
+/* Define to 1 if you have the <node8/node.h> header file. */
+#undef HAVE_NODE8_NODE_H
+
+/* Define to 1 if you have the <node8/v8.h> header file. */
+#undef HAVE_NODE8_V8_H
+
 /* Define to 1 if you have the <node.h> header file. */
 #undef HAVE_NODE_H
 
@@ -67,8 +73,7 @@
 /* Define to 1 if you have the <v8.h> header file. */
 #undef HAVE_V8_H
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
 
 /* Name of package */

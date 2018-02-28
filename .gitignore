@@ -37,3 +37,5 @@ libtool
 */*libs/*
 *.lo
 config.lt
+*.dSYM
+nodetcl-1.0.0/*

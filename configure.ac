@@ -1,5 +1,5 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
+dnl#                                               -*- Autoconf -*-
+dnl# Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
 AC_INIT([nodetcl],[1.0.0],[jeff@bovine.net])
@@ -59,12 +59,12 @@ if test "x${NODE_WAF}" = "x"; then
 	test -z "${NODE_WAF}"
 	AC_MSG_ERROR([node-waf not found; it is required to build])
 fi
-AC_SUBST([NODE_WAF])
-AC_PATH_PROG([WAF],[waf waf-1.6.2],[],[${PATH}:.])
+AC_SUBST([NODE_WAF])dnl
+AC_PATH_PROG([WAF],[waf waf-1.6.2],[],[${PATH}:.])dnl
 
 # Try using libtool for linking:
 LT_INIT([dlopen])
-LT_LANG([C++])
+LT_LANG([C++])dnl
 
 # Checks for libraries.
 AC_SEARCH_LIBS([Tcl_Init],[Tcl Tcl85 Tcl8.5])
@@ -75,11 +75,12 @@ AC_CHECK_LIB([v8_base],[main])
 # FIXME: Replace `main' with a function in `-lv8_nosnapshot':
 AC_CHECK_LIB([v8_nosnapshot],[main])
 # FIXME: Replace `main' with a function in `-lv8_snapshot':
-AC_CHECK_LIB([v8_snapshot],[main])
+AC_CHECK_LIB([v8_snapshot],[main])dnl
 
 # Checks for header files.
 AC_CHECK_HEADERS([node.h stdio.h tcl.h v8.h])
 AC_CHECK_HEADERS_ONCE([node/node.h node/v8.h])
+AC_CHECK_HEADERS_ONCE([node8/node.h node8/v8.h])dnl
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_BIGENDIAN
@@ -89,6 +90,7 @@ AC_C_PROTOTYPES
 # Checks for library functions.
 AC_FUNC_MALLOC
 
+# Output.
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_COMMANDS([node-waf],[
 test ! -z ${NODE_WAF} && ${NODE_WAF} configure
