@@ -39,3 +39,4 @@ libtool
 config.lt
 *.dSYM
 nodetcl-1.0.0/*
+*.swp
