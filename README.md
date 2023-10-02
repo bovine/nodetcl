@@ -11,6 +11,9 @@ Just run `make` and a shared-library named `nodetcl.node` will be created.
 
 Compilation has only been tested on FreeBSD 8.2 with node-0.4.12 and tcl-8.5.10.
 
+It requires `node-waf` to be installed in order to build
+(Not all node distributions come with this binary for some reason...)
+
 
 ## Example
 

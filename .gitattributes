@@ -1,0 +1,12 @@
+autotools_build-aux/ar-lib linguist-vendored
+autotools_build-aux/compile linguist-vendored
+autotools_build-aux/config.guess linguist-vendored
+autotools_build-aux/config.sub linguist-vendored
+autotools_build-aux/install-sh linguist-vendored
+autotools_build-aux/ltmain.sh linguist-vendored
+autotools_build-aux/missing linguist-vendored
+aclocal.m4 linguist-vendored
+autotools_m4/libtool.m4 linguist-vendored
+autotools_m4/lt*.m4 linguist-vendored
+Makefile.in linguist-vendored
+
